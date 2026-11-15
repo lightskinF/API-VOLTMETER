@@ -1,0 +1,10 @@
+importoRata,giorniRitardo,sollecitoInviato,expectedStatusCode,expectedMora,expectedFascia
+400.00,0,false,200,0.00,GRAZIA
+400.00,14,false,200,0.00,GRAZIA
+400.00,15,false,200,30.00,RITARDO_LIEVE
+400.00,30,false,200,30.00,RITARDO_LIEVE
+400.00,31,false,200,90.00,RITARDO_MEDIO
+400.00,90,false,200,90.00,RITARDO_MEDIO
+400.00,45,true,200,115.00,RITARDO_MEDIO
+400.00,91,false,200,180.00,RITARDO_GRAVE
+400.00,-1,false,400,0.00,N/A

@@ -1,0 +1,24 @@
+Modello: Gemini, ragionamento alto, chat nuova. Data: 14 novembre 2026.
+Allegati: PDF dei requisiti del servizio Tasse, testo della consegna della prima fase, CSV di esempio del docente.
+Nessuna correzione successiva: Gemini ha solo scritto i casi di test, che sono stati eseguiti senza modificarne i valori.
+
+---
+
+Sei uno studente di un corso magistrale di Ingegneria del Software e devi svolgere
+questa esercitazione di testing black box di un servizio REST.
+
+CONSEGNA:
+[testo della consegna della prima fase]
+
+In allegato trovi il PDF con i requisiti del servizio e un file CSV per ogni servizio.
+
+Per ogni servizio:
+1. individua le classi di equivalenza e i valori limite a partire dai requisiti;
+2. compila il CSV corrispondente: una riga per caso di test, con gli input e l'output
+   atteso secondo i requisiti.
+
+Rispetta esattamente le colonne e il formato dei CSV allegati. Restituisci il
+contenuto completo di ogni CSV in un blocco di codice separato.
+
+I CSV allegati contengono già alcuni casi di esempio forniti dal docente:
+mantienili e aggiungi i tuoi.

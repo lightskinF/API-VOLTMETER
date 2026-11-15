@@ -1,0 +1,630 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition (con i limiti documentati)",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://characters-immigrants-jon-coordination.trycloudflare.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Microservizi Tasse",
+      "description": "Servizi GET per il calcolo delle tasse universitarie e agevolazioni"
+    }
+  ],
+  "paths": {
+    "/api/v1/tasse/sconto-merito": {
+      "get": {
+        "tags": [
+          "Microservizi Tasse"
+        ],
+        "summary": "Calcola lo sconto merito accademico",
+        "operationId": "calcolaScontoMerito",
+        "parameters": [
+          {
+            "name": "cfuAcquisiti",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0,
+              "maximum": 180
+            }
+          },
+          {
+            "name": "cfuPrevisti",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 180
+            }
+          },
+          {
+            "name": "mediaVoti",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 18,
+              "maximum": 30
+            }
+          },
+          {
+            "name": "lode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScontoMeritoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parametri non validi o incoerenti"
+          }
+        }
+      }
+    },
+    "/api/v1/tasse/piano-rate": {
+      "get": {
+        "tags": [
+          "Microservizi Tasse"
+        ],
+        "summary": "Genera piano rate",
+        "operationId": "calcolaPianoRate",
+        "parameters": [
+          {
+            "name": "importoTotale",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 0,
+              "exclusiveMinimum": true
+            }
+          },
+          {
+            "name": "numeroRate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 4
+            }
+          },
+          {
+            "name": "isee",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "default": 0,
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PianoRateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parametri non validi o incoerenti"
+          }
+        }
+      }
+    },
+    "/api/v1/tasse/mora-ritardo": {
+      "get": {
+        "tags": [
+          "Microservizi Tasse"
+        ],
+        "summary": "Calcola mora ritardo",
+        "operationId": "calcolaMoraRitardo",
+        "parameters": [
+          {
+            "name": "importoRata",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 0,
+              "exclusiveMinimum": true
+            }
+          },
+          {
+            "name": "giorniRitardo",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "sollecitoInviato",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MoraRitardoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parametri non validi o incoerenti"
+          }
+        }
+      }
+    },
+    "/api/v1/tasse/fascia-isee": {
+      "get": {
+        "tags": [
+          "Microservizi Tasse"
+        ],
+        "summary": "Determina la fascia ISEE e le agevolazioni",
+        "operationId": "calcolaFasciaIsee",
+        "parameters": [
+          {
+            "name": "isee",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "componentiNucleo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1,
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FasciaIseeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parametri non validi o incoerenti"
+          }
+        }
+      }
+    },
+    "/api/v1/tasse/esenzione-speciale": {
+      "get": {
+        "tags": [
+          "Microservizi Tasse"
+        ],
+        "summary": "Valuta esenzioni speciali",
+        "operationId": "valutaEsenzioneSpeciale",
+        "parameters": [
+          {
+            "name": "percentualeDisabilita",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0,
+              "minimum": 0,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "vincitoreBorsaStudio",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "votoMaturita",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 60,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "primoAnno",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EsenzioneSpecialeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parametri non validi o incoerenti"
+          }
+        }
+      }
+    },
+    "/api/v1/tasse/calcola-contributo-base": {
+      "get": {
+        "tags": [
+          "Microservizi Tasse"
+        ],
+        "summary": "Calcola il contributo universitario base",
+        "operationId": "calcolaContributoBase",
+        "parameters": [
+          {
+            "name": "corsoDiStudi",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "UMANISTICO",
+                "SCIENTIFICO",
+                "MEDICO",
+                "INGEGNERIA"
+              ]
+            }
+          },
+          {
+            "name": "tipologiaIscrizione",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "IN_CORSO",
+                "FUORI_CORSO",
+                "PART_TIME"
+              ]
+            }
+          },
+          {
+            "name": "anniFuoriCorso",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContributoBaseResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parametri non validi o incoerenti"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ScontoMeritoResponse": {
+        "type": "object",
+        "properties": {
+          "cfuAcquisiti": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cfuPrevisti": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mediaVoti": {
+            "type": "number",
+            "format": "double"
+          },
+          "lode": {
+            "type": "boolean"
+          },
+          "percentualeCfu": {
+            "type": "number",
+            "format": "double"
+          },
+          "percentualeScontoMerito": {
+            "type": "number",
+            "format": "double"
+          },
+          "note": {
+            "type": "string"
+          },
+          "difetto": {
+            "type": "string"
+          }
+        }
+      },
+      "DettaglioRata": {
+        "type": "object",
+        "properties": {
+          "numeroRata": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "importoEuro": {
+            "type": "number",
+            "format": "double"
+          },
+          "scadenzaGiorni": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PianoRateResponse": {
+        "type": "object",
+        "properties": {
+          "importoTotale": {
+            "type": "number",
+            "format": "double"
+          },
+          "numeroRate": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isee": {
+            "type": "number",
+            "format": "double"
+          },
+          "speseGestioneEuro": {
+            "type": "number",
+            "format": "double"
+          },
+          "importoFinaleEuro": {
+            "type": "number",
+            "format": "double"
+          },
+          "dettaglioRate": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DettaglioRata"
+            }
+          },
+          "difetto": {
+            "type": "string"
+          }
+        }
+      },
+      "MoraRitardoResponse": {
+        "type": "object",
+        "properties": {
+          "importoRata": {
+            "type": "number",
+            "format": "double"
+          },
+          "giorniRitardo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sollecitoInviato": {
+            "type": "boolean"
+          },
+          "fasciaRitardo": {
+            "type": "string",
+            "enum": [
+              "GRAZIA",
+              "RITARDO_LIEVE",
+              "RITARDO_MEDIO",
+              "RITARDO_GRAVE"
+            ]
+          },
+          "moraApplicataEuro": {
+            "type": "number",
+            "format": "double"
+          },
+          "importoTotaleDovutoEuro": {
+            "type": "number",
+            "format": "double"
+          },
+          "note": {
+            "type": "string"
+          },
+          "difetto": {
+            "type": "string"
+          }
+        }
+      },
+      "FasciaIseeResponse": {
+        "type": "object",
+        "properties": {
+          "isee": {
+            "type": "number",
+            "format": "double"
+          },
+          "componentiNucleo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fasciaIsee": {
+            "type": "string",
+            "enum": [
+              "FASCIA_1",
+              "FASCIA_2",
+              "FASCIA_3",
+              "FASCIA_4",
+              "FASCIA_5"
+            ]
+          },
+          "percentualeSconto": {
+            "type": "number",
+            "format": "double"
+          },
+          "quotaFissaEuro": {
+            "type": "number",
+            "format": "double"
+          },
+          "note": {
+            "type": "string"
+          },
+          "difetto": {
+            "type": "string"
+          }
+        }
+      },
+      "EsenzioneSpecialeResponse": {
+        "type": "object",
+        "properties": {
+          "percentualeDisabilita": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vincitoreBorsaStudio": {
+            "type": "boolean"
+          },
+          "votoMaturita": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "primoAnno": {
+            "type": "boolean"
+          },
+          "esitoEsenzione": {
+            "type": "string",
+            "enum": [
+              "ESENZIONE_TOTALE",
+              "ESENZIONE_PARZIALE_50",
+              "ESENZIONE_PARZIALE_30",
+              "NESSUNA_ESENZIONE"
+            ]
+          },
+          "percentualeEsenzione": {
+            "type": "number",
+            "format": "double"
+          },
+          "descrizione": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "difetto": {
+            "type": "string"
+          }
+        }
+      },
+      "ContributoBaseResponse": {
+        "type": "object",
+        "properties": {
+          "corsoDiStudi": {
+            "type": "string",
+            "enum": [
+              "UMANISTICO",
+              "SCIENTIFICO",
+              "MEDICO",
+              "INGEGNERIA"
+            ]
+          },
+          "tipologiaIscrizione": {
+            "type": "string",
+            "enum": [
+              "IN_CORSO",
+              "FUORI_CORSO",
+              "PART_TIME"
+            ]
+          },
+          "anniFuoriCorso": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "importoBaseEuro": {
+            "type": "number",
+            "format": "double"
+          },
+          "moltiplicatore": {
+            "type": "number",
+            "format": "double"
+          },
+          "importoFinaleEuro": {
+            "type": "number",
+            "format": "double"
+          },
+          "note": {
+            "type": "string"
+          },
+          "difetto": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
