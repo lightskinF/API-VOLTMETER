@@ -79,4 +79,3 @@ python leggi_xml.py risultati_intellij.xml
 
 - Il server strumentato del docente era raggiungibile a un indirizzo temporaneo, che potrebbe non essere più attivo.
 - Il codice del servizio, le slide e il progetto JUnit del corso non sono inclusi: sono materiale del docente.
-- La repository contiene informazioni sui difetti iniettati nell'esercitazione e pertanto l'ho mantenuta privata.
