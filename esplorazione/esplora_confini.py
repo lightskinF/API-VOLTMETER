@@ -14,7 +14,8 @@ contesto sono calcolati dalle regole delle slide.
 Per ogni parametro e contesto:
   1. SONDAGGIO: i due lati di ogni confine documentato, poi passi doppi
      (1, 2, 4, 8, ...). Nel primo contesto di ogni parametro si arriva ai limiti
-     del tipo int a 32 bit; negli altri ci si ferma a 1024 oltre i confini noti.
+     del tipo int a 32 bit; negli altri l'ultimo passo e' 512 oltre i confini noti
+     (il primo passo doppio che non supera il margine di 1024).
   2. LOCALIZZAZIONE: dove la firma cambia tra due valori sondati, bisezione fino
      ai due valori adiacenti del cambio.
   3. CONFRONTO: cambi conformi, non documentati, documentati ma assenti;
@@ -34,7 +35,7 @@ import urllib.parse
 import urllib.request
 
 INT_MIN, INT_MAX = -2**31, 2**31 - 1
-MARGINE = 1024
+MARGINE = 1024  # i passi doppi devono restare strettamente entro il margine: l'ultimo e' 512
 
 # ---------------------------------------------------------------------------
 # Specifica: per ogni parametro intero, i contesti (combinazioni dei
@@ -167,7 +168,7 @@ def firma(p, valore):
     try:
         dati = json.loads(corpo)
     except ValueError:
-        dati = {}
+        return (codice,)  # corpo non JSON: la firma e' il solo status
     if isinstance(dati, dict) and dati.get("difetto"):
         difetti_visti.add(dati["difetto"])
     if codice != 200 or not isinstance(dati, dict):
@@ -222,9 +223,9 @@ def esplora(p, completo):
 
     attesi = {}
     if p["min"] is not None:
-        attesi[(p["min"] - 1, p["min"])] = "limite inferiore documentato"
+        attesi[(p["min"] - 1, p["min"])] = "limite inferiore di riferimento"
     if p["max"] is not None:
-        attesi[(p["max"], p["max"] + 1)] = "limite superiore documentato"
+        attesi[(p["max"], p["max"] + 1)] = "limite superiore di riferimento"
     attesi.update(p["confini"])
     di_tipo = {(INT_MAX, INT_MAX + 1), (INT_MIN - 1, INT_MIN)}
 

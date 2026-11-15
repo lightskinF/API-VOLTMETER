@@ -1,24 +1,32 @@
-Modello: Gemini, ragionamento alto, chat nuova. Data: 14 novembre 2026.
-Allegati: PDF dei requisiti del servizio Tasse, testo della consegna della prima fase, CSV di esempio del docente.
-Nessuna correzione successiva: Gemini ha solo scritto i casi di test, che sono stati eseguiti senza modificarne i valori.
+Modello: Gemini, selezione automatica del modello ("Auto"), ragionamento avanzato, in una chat nuova.
+Data: 14 novembre 2026.
 
+Allegati:
+- un'immagine con il testo della consegna della prima fase (non incluso: materiale del corso);
+- il PDF con i requisiti del servizio Tasse (non incluso: materiale del corso);
+- i 6 file CSV del progetto di esempio del docente.
+
+Nota: il testo parla di CSV "vuoti", con la sola intestazione, ma i file allegati contenevano
+anche le righe di esempio del docente, come si vede dai CSV prodotti da Gemini, che ne riprendono
+diverse. Nessuna correzione successiva: Gemini ha solo scritto i casi di test, eseguiti senza
+modificarne i valori.
+
+Testo inviato:
 ---
 
 Sei uno studente di un corso magistrale di Ingegneria del Software e devi svolgere
 questa esercitazione di testing black box di un servizio REST.
 
 CONSEGNA:
-[testo della consegna della prima fase]
+Ti ho allegato nell'immagine il testo della traccia
 
-In allegato trovi il PDF con i requisiti del servizio e un file CSV per ogni servizio.
+In allegato trovi il PDF con i requisiti del servizio e un file CSV vuoto per ogni
+servizio, che contiene solo l'intestazione delle colonne.
 
 Per ogni servizio:
 1. individua le classi di equivalenza e i valori limite a partire dai requisiti;
 2. compila il CSV corrispondente: una riga per caso di test, con gli input e l'output
-   atteso secondo i requisiti.
+atteso secondo i requisiti.
 
 Rispetta esattamente le colonne e il formato dei CSV allegati. Restituisci il
 contenuto completo di ogni CSV in un blocco di codice separato.
-
-I CSV allegati contengono già alcuni casi di esempio forniti dal docente:
-mantienili e aggiungi i tuoi.

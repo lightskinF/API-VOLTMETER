@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "http://characters-immigrants-jon-coordination.trycloudflare.com",
+      "url": "http://localhost:8080",
       "description": "Generated server url"
     }
   ],
